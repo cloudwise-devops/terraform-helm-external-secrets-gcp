@@ -5,7 +5,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
-
+*.iml
 # Crash log files
 crash.log
 
