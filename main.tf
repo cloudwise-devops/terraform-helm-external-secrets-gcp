@@ -26,7 +26,7 @@ resource "helm_release" "kubernetes-external-secrets" {
   values = [<<EOF
   env:
     POLLER_INTERVAL_MILLISECONDS: ${var.external_secrets_poller_internal}
-    LOG_LEVEL: info
+    LOG_LEVEL: error
   rbac:
     create: true
   serviceAccount:
