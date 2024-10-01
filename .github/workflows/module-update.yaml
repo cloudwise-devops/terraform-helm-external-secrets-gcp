@@ -37,23 +37,23 @@ jobs:
         echo "Latest ArgoCD Helm version: $latest_chart_version"
         echo "latest_chart_version=$latest_chart_version" >> $GITHUB_ENV
 
-    - name: Update version in variables.tf if necessary
+    - name: Update version in vars.tf if necessary
       id: compare_versions
       run: |
-        current_chart_version=$(cat variables.tf | grep external_secrets_helm_chart_version -A 3 | grep default | awk -F'"' '{print $2}')
+        current_chart_version=$(cat vars.tf | grep external_secrets_helm_chart_version -A 3 | grep default | awk -F'"' '{print $2}')
         latest_chart_version="${{ env.latest_chart_version }}"
         echo "Current Helm chart version: $current_chart_version"
         echo "Latest Helm chart version: $latest_chart_version"
         echo "update_version=false" >> $GITHUB_ENV
-        cat variables.tf | grep -A 4 -B 4 external_secrets_helm_chart_version
+        cat vars.tf | grep -A 4 -B 4 external_secrets_helm_chart_version
         if [[ "$latest_chart_version" != "$current_chart_version" ]]; then
           echo "update_version=true" >> $GITHUB_ENV
           echo "Updating Helm chart to $latest_chart_version"
-          sed -i "s/$current_chart_version/$latest_chart_version/" variables.tf
+          sed -i "s/$current_chart_version/$latest_chart_version/" vars.tf
         else
           echo "Already up-to-date"
         fi
-        cat variables.tf | grep -A 4 -B 4 external_secrets_helm_chart_version
+        cat vars.tf | grep -A 4 -B 4 external_secrets_helm_chart_version
 
     - name: Install terraform-docs
       id: docs
