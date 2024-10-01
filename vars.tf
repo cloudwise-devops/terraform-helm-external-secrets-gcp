@@ -1,7 +1,7 @@
 variable "helm_repos" {
   type = map(string)
   default = {
-    external-secrets = "https://external-secrets.github.io/kubernetes-external-secrets/"
+    external-secrets = "https://charts.external-secrets.io"
   }
 }
 
