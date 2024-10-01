@@ -17,7 +17,7 @@ resource "kubernetes_service_account" "external_secrets" {
 resource "helm_release" "kubernetes-external-secrets" {
   name          = "external-secrets"
   repository    = var.helm_repos.external-secrets
-  chart         = "external-secrets/external-secrets"
+  chart         = "external-secrets"
   version       = var.external_secrets_helm_chart_version
   wait          = true
   force_update  = false
