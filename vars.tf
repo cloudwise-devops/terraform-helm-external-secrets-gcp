@@ -11,9 +11,9 @@ variable "external_secrets_helm_chart_version" {
 
 
 variable "external_secrets_poller_internal" {
-  default     = 10000
-  description = "Set POLLER_INTERVAL_MILLISECONDS from GCP"
-  type        = number
+  default     = "10m"
+  description = "The amount of time before the values reading again from the SecretStore provider"
+  type        = string
 }
 
 variable "external_secrets_deployment_replica_count" {

@@ -33,7 +33,7 @@ No requirements.
 | <a name="input_external_secrets_k8s_account_name"></a> [external\_secrets\_k8s\_account\_name](#input\_external\_secrets\_k8s\_account\_name) | n/a | `string` | `"external-secrets-sa"` | no |
 | <a name="input_external_secrets_k8s_sa_use_existing"></a> [external\_secrets\_k8s\_sa\_use\_existing](#input\_external\_secrets\_k8s\_sa\_use\_existing) | n/a | `bool` | `true` | no |
 | <a name="input_external_secrets_namespace_name"></a> [external\_secrets\_namespace\_name](#input\_external\_secrets\_namespace\_name) | n/a | `string` | `"external-secrets"` | no |
-| <a name="input_external_secrets_poller_internal"></a> [external\_secrets\_poller\_internal](#input\_external\_secrets\_poller\_internal) | Set POLLER\_INTERVAL\_MILLISECONDS from GCP | `number` | `10000` | no |
+| <a name="input_external_secrets_poller_internal"></a> [external\_secrets\_poller\_internal](#input\_external\_secrets\_poller\_internal) | The amount of time before the values reading again from the SecretStore provider | `string` | `"10m"` | no |
 | <a name="input_gcp_project_name"></a> [gcp\_project\_name](#input\_gcp\_project\_name) | n/a | `any` | n/a | yes |
 | <a name="input_helm_repos"></a> [helm\_repos](#input\_helm\_repos) | n/a | `map(string)` | <pre>{<br>  "external-secrets": "https://charts.external-secrets.io"<br>}</pre> | no |
 

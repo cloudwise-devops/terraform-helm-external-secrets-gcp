@@ -15,7 +15,7 @@ resource "kubernetes_service_account" "external_secrets" {
 }
 
 resource "helm_release" "kubernetes-external-secrets" {
-  name          = "external-secrets"
+  name          = "external-secrets-operator"
   repository    = var.helm_repos.external-secrets
   chart         = "external-secrets"
   version       = var.external_secrets_helm_chart_version
@@ -24,9 +24,12 @@ resource "helm_release" "kubernetes-external-secrets" {
   recreate_pods = true
   namespace     = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
   values = [<<EOF
-  env:
-    POLLER_INTERVAL_MILLISECONDS: ${var.external_secrets_poller_internal}
-    LOG_LEVEL: error
+  certController:
+    requeueInterval: ${var.external_secrets_poller_internal}
+    log:
+      level: error
+    securityContext:
+      runAsUser: 65534
   rbac:
     create: true
   serviceAccount:
@@ -35,8 +38,6 @@ resource "helm_release" "kubernetes-external-secrets" {
   replicaCount: ${var.external_secrets_deployment_replica_count}
   podAnnotations: {}
   podLabels: {}
-  securityContext:
-    fsGroup: 65534
   EOF
   ]
 }
