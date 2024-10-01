@@ -6,7 +6,7 @@ variable "helm_repos" {
 }
 
 variable "external_secrets_helm_chart_version" {
-  default = "8.3.0"
+  default = "0.10.4"
 }
 
 

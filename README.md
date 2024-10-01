@@ -1,6 +1,3 @@
-# terraform-helm-external-secrets-gcp
-Check out other CWISE modules at - https://registry.terraform.io/namespaces/cloudwise-devops
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -32,13 +29,13 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_external_secrets_deployment_replica_count"></a> [external\_secrets\_deployment\_replica\_count](#input\_external\_secrets\_deployment\_replica\_count) | Deployment Pod replica count | `number` | `1` | no |
-| <a name="input_external_secrets_helm_chart_version"></a> [external\_secrets\_helm\_chart\_version](#input\_external\_secrets\_helm\_chart\_version) | n/a | `string` | `"8.3.0"` | no |
+| <a name="input_external_secrets_helm_chart_version"></a> [external\_secrets\_helm\_chart\_version](#input\_external\_secrets\_helm\_chart\_version) | n/a | `string` | `"0.10.4"` | no |
 | <a name="input_external_secrets_k8s_account_name"></a> [external\_secrets\_k8s\_account\_name](#input\_external\_secrets\_k8s\_account\_name) | n/a | `string` | `"external-secrets-sa"` | no |
 | <a name="input_external_secrets_k8s_sa_use_existing"></a> [external\_secrets\_k8s\_sa\_use\_existing](#input\_external\_secrets\_k8s\_sa\_use\_existing) | n/a | `bool` | `true` | no |
 | <a name="input_external_secrets_namespace_name"></a> [external\_secrets\_namespace\_name](#input\_external\_secrets\_namespace\_name) | n/a | `string` | `"external-secrets"` | no |
 | <a name="input_external_secrets_poller_internal"></a> [external\_secrets\_poller\_internal](#input\_external\_secrets\_poller\_internal) | Set POLLER\_INTERVAL\_MILLISECONDS from GCP | `number` | `10000` | no |
 | <a name="input_gcp_project_name"></a> [gcp\_project\_name](#input\_gcp\_project\_name) | n/a | `any` | n/a | yes |
-| <a name="input_helm_repos"></a> [helm\_repos](#input\_helm\_repos) | n/a | `map(string)` | <pre>{<br>  "external-secrets": "https://external-secrets.github.io/kubernetes-external-secrets/"<br>}</pre> | no |
+| <a name="input_helm_repos"></a> [helm\_repos](#input\_helm\_repos) | n/a | `map(string)` | <pre>{<br/>  "external-secrets": "https://external-secrets.github.io/kubernetes-external-secrets/"<br/>}</pre> | no |
 
 ## Outputs
 
