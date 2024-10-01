@@ -1,0 +1,108 @@
+
+name: Check and update External Secrets Helm chart version
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allows manual trigger
+
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Format Terraform scripts
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: true
+
+    - name: Initialize Terraform
+      id: init
+      run: terraform init
+
+    - name: Validate Terraform scripts
+      id: validate
+      run: terraform validate -no-color
+
+    - name: Get latest Helm chart version from ArtifactHub
+      id: get_latest_version
+      run: |
+        latest_chart_version=$(curl -s https://artifacthub.io/api/v1/packages/helm/external-secrets-operator/external-secrets | jq -r '.version')
+        echo "Latest ArgoCD Helm version: $latest_chart_version"
+        echo "latest_chart_version=$latest_chart_version" >> $GITHUB_ENV
+
+    - name: Update version in variables.tf if necessary
+      id: compare_versions
+      run: |
+        current_chart_version=$(cat variables.tf | grep external_secrets_helm_chart_version -A 3 | grep default | awk -F'"' '{print $2}')
+        latest_chart_version="${{ env.latest_chart_version }}"
+        echo "Current Helm chart version: $current_chart_version"
+        echo "Latest Helm chart version: $latest_chart_version"
+        echo "update_version=false" >> $GITHUB_ENV
+        cat variables.tf | grep -A 4 -B 4 external_secrets_helm_chart_version
+        if [[ "$latest_chart_version" != "$current_chart_version" ]]; then
+          echo "update_version=true" >> $GITHUB_ENV
+          echo "Updating Helm chart to $latest_chart_version"
+          sed -i "s/$current_chart_version/$latest_chart_version/" variables.tf
+        else
+          echo "Already up-to-date"
+        fi
+        cat variables.tf | grep -A 4 -B 4 external_secrets_helm_chart_version
+
+    - name: Install terraform-docs
+      id: docs
+      if: env.update_version == 'true'
+      run: |
+        curl -sSLo terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.19.0/terraform-docs-v0.19.0-linux-amd64.tar.gz
+        tar -xzf terraform-docs.tar.gz
+        chmod +x terraform-docs
+        sudo mv terraform-docs /usr/local/bin/
+        rm README.md
+        terraform-docs markdown table --output-file README.md ./
+
+    - name: Get latest tag
+      id: get_latest_tag
+      if: env.update_version == 'true'
+      run: |
+        git fetch --tags
+        latest_tag=$(git tag --sort=-v:refname | head -n 1)
+        echo "Latest tag: $latest_tag"
+        echo "latest_tag=$latest_tag" >> $GITHUB_ENV
+
+    - name: Increment version
+      id: increment_version
+      if: env.update_version == 'true'
+      run: |
+        IFS='.' read -r major minor patch <<< "${{ env.latest_tag }}"
+        new_patch=$((patch + 1))
+        new_tag="$major.$minor.$new_patch"
+        echo "New version: $new_tag"
+        echo "new_tag=$new_tag" >> $GITHUB_ENV
+
+    - name: Commit changes
+      if: env.update_version == 'true'   
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "actions@github.com"
+        git add .
+        git status
+        git commit -m "Update module to External Secrets Helm chart version - ${{ env.latest_version }}"
+
+    - name: Tag the new version
+      if: env.update_version == 'true'
+      run: |
+        git tag ${{ env.new_tag }}
+
+    - name: Push changes and tags
+      if: env.update_version == 'true'
+      run: |
+        git push origin main
+        git push origin main --tags
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
