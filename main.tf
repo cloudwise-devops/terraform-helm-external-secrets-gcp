@@ -11,7 +11,7 @@ resource "kubernetes_namespace" "kubernetes-external-secrets" {
   }
 }
 
-module "external-secrets-workload-identity" {
+module "external-secrets-wordload-identity" {
   source              = "terraform-google-modules/kubernetes-engine/google//modules/workload-identity"
   name                = var.external_secrets_k8s_account_name
   namespace           = var.external_secrets_namespace_name
@@ -25,7 +25,7 @@ resource "kubernetes_service_account" "external_secrets" {
     name      = var.external_secrets_k8s_account_name
     namespace = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
     annotations = {
-      "iam.gke.io/gcp-service-account" = module.external-secrets-workload-identity.gcp_service_account_email
+      "iam.gke.io/gcp-service-account" = module.external-secrets-wordload-identity.gcp_service_account_email
     }
   }
 }

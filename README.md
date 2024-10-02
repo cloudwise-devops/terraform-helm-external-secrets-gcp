@@ -15,7 +15,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_external-secrets-workload-identity"></a> [external-secrets-workload-identity](#module\_external-secrets-workload-identity) | terraform-google-modules/kubernetes-engine/google//modules/workload-identity | n/a |
+| <a name="module_external-secrets-wordload-identity"></a> [external-secrets-wordload-identity](#module\_external-secrets-wordload-identity) | terraform-google-modules/kubernetes-engine/google//modules/workload-identity | n/a |
 
 ## Resources
 
