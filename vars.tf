@@ -47,14 +47,10 @@ variable "create_gcp_cluster_secret_store" {
 variable "gcp_cluster_secret_store_name" {
   type        = string
   description = "The name of the GCP Cluster Secret Store. Must follow Kubernetes naming conventions."
+  default     = "default-cluster-secret-store-name"
 
   validation {
     condition     = can(regex("^([a-z0-9][-a-z0-9]{0,61}[a-z0-9])?$", var.gcp_cluster_secret_store_name))
     error_message = "The name must consist of lowercase alphanumeric characters or '-', start with a letter or number, and be between 1 and 63 characters long."
   }
-}
-
-locals {
-  generated_store_name = substr(replace(lower("gcp-${var.gcp_project_name}-cluster-store"), "[^a-z0-9-]", "-"), 0, 63)
-  final_store_name     = var.gcp_cluster_secret_store_name != "" ? var.gcp_cluster_secret_store_name : local.generated_store_name
 }
