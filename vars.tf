@@ -1,3 +1,6 @@
+
+variable "gcp_project_name" {}
+
 variable "helm_repos" {
   type = map(string)
   default = {
@@ -27,13 +30,16 @@ variable "external_secrets_namespace_name" {
   type    = string
 }
 
-variable "gcp_project_name" {}
-
-
 variable "external_secrets_k8s_account_name" {
   default = "external-secrets-sa"
 }
 
 variable "external_secrets_k8s_sa_use_existing" {
   default = true
+}
+
+variable "create_gcp_cluster_secret_store" {
+  type        = bool
+  default     = false
+  description = "Wether to create an association to external secret provider - GCP"
 }
