@@ -49,11 +49,7 @@ resource "kubernetes_manifest" "gcp_cluster_secret_store" {
     apiVersion = "external-secrets.io/v1beta1"
     kind       = "ClusterSecretStore"
     metadata = {
-      name = substr(
-        replace(
-          lower("gcp-${var.gcp_project_name}-cluster-store"),
-        "[^a-z0-9-]", "-"),
-      0, 63)
+      name = local.final_store_name
     }
     spec = {
       provider = {
