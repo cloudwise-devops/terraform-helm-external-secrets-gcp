@@ -15,4 +15,8 @@ resource "kubernetes_manifest" "gcp_cluster_secret_store" {
       }
     }
   }
+
+  depends_on = [
+    helm_release.kubernetes-external-secrets
+  ]
 }
