@@ -6,6 +6,11 @@ resource "kubernetes_manifest" "gcp_cluster_secret_store" {
     kind       = "ClusterSecretStore"
     metadata = {
       name = "gcp-${var.gcp_project_name}-cluster-store"
+      name = substr(
+        replace(
+          lower("gcp-${var.gcp_project_name}-cluster-store"),
+        "[^a-z0-9-]", "-"),
+      0, 63)
     }
     spec = {
       provider = {
