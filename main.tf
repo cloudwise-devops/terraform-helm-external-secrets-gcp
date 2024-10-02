@@ -1,10 +1,4 @@
 
-resource "google_project_service" "storage-api" {
-  project                    = var.gcp_project_name
-  service                    = "secretmanager.googleapis.com"
-  disable_dependent_services = true
-}
-
 resource "kubernetes_namespace" "kubernetes-external-secrets" {
   metadata {
     name = var.external_secrets_namespace_name
