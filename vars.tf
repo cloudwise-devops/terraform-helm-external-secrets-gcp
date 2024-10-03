@@ -12,13 +12,6 @@ variable "external_secrets_helm_chart_version" {
   default = "0.10.4"
 }
 
-
-variable "external_secrets_poller_internal" {
-  default     = "1h"
-  description = "The amount of time before the values reading again from the SecretStore provider"
-  type        = string
-}
-
 variable "external_secrets_deployment_replica_count" {
   default     = 1
   description = "Deployment Pod replica count"
