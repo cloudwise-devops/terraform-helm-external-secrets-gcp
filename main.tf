@@ -34,15 +34,6 @@ resource "helm_release" "kubernetes-external-secrets" {
   force_update  = false
   recreate_pods = true
   namespace     = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
-
-  # This provisioner will wait for all necessary CRDs to be established
-  provisioner "local-exec" {
-    command = <<EOT
-      kubectl wait --for=condition=established --timeout=60s crd/clustersecretstores.external-secrets.io && \
-      kubectl wait --for=condition=established --timeout=60s crd/externalsecrets.external-secrets.io
-    EOT
-  }
-
   values = [
     templatefile("${path.module}/templates/external-secrets.yaml.tpl",
       {
@@ -51,6 +42,14 @@ resource "helm_release" "kubernetes-external-secrets" {
       }
     )
   ]
+}
+
+resource "null_resource" "delay_before_manifest" {
+  provisioner "local-exec" {
+    command = "bash ${path.module}/scripts/wait-for-crds.sh"
+  }
+
+  depends_on = [helm_release.kubernetes-external-secrets]
 }
 
 resource "kubernetes_manifest" "gcp_cluster_secret_store" {
@@ -70,7 +69,5 @@ resource "kubernetes_manifest" "gcp_cluster_secret_store" {
     }
   }
 
-  depends_on = [
-    helm_release.kubernetes-external-secrets
-  ]
+  depends_on = [null_resource.delay_before_manifest]
 }
