@@ -30,6 +30,7 @@ resource "helm_release" "kubernetes-external-secrets" {
   chart         = "external-secrets"
   version       = var.external_secrets_helm_chart_version
   wait          = true
+  wait_for_jobs = true
   force_update  = false
   recreate_pods = true
   namespace     = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
