@@ -14,7 +14,7 @@ variable "external_secrets_helm_chart_version" {
 
 
 variable "external_secrets_poller_internal" {
-  default     = "10m"
+  default     = "1h"
   description = "The amount of time before the values reading again from the SecretStore provider"
   type        = string
 }
@@ -40,14 +40,14 @@ variable "external_secrets_k8s_sa_use_existing" {
 
 variable "create_gcp_cluster_secret_store" {
   type        = bool
-  default     = false
+  default     = true
   description = "Whether to create an association to external secret provider - GCP"
 }
 
 variable "gcp_cluster_secret_store_name" {
   type        = string
   description = "The name of the GCP Cluster Secret Store. Must follow Kubernetes naming conventions."
-  default     = "default-cluster-secret-store-name"
+  default     = "default-gcp-project-cluster-store"
 
   validation {
     condition     = can(regex("^([a-z0-9][-a-z0-9]{0,61}[a-z0-9])?$", var.gcp_cluster_secret_store_name))
