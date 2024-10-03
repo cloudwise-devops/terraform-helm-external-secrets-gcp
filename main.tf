@@ -34,6 +34,15 @@ resource "helm_release" "kubernetes-external-secrets" {
   force_update  = false
   recreate_pods = true
   namespace     = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
+
+  # This provisioner will wait for all necessary CRDs to be established
+  provisioner "local-exec" {
+    command = <<EOT
+      kubectl wait --for=condition=established --timeout=60s crd/clustersecretstores.external-secrets.io && \
+      kubectl wait --for=condition=established --timeout=60s crd/externalsecrets.external-secrets.io
+    EOT
+  }
+
   values = [
     templatefile("${path.module}/templates/external-secrets.yaml.tpl",
       {
