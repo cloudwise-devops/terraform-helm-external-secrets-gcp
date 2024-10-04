@@ -1,4 +1,13 @@
 
+terraform {
+  required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.14.0"
+    }
+  }
+}
+
 resource "kubernetes_namespace" "kubernetes-external-secrets" {
   metadata {
     name = var.external_secrets_namespace_name
@@ -33,7 +42,11 @@ resource "helm_release" "kubernetes-external-secrets" {
   wait_for_jobs = true
   force_update  = false
   recreate_pods = true
-  namespace     = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
+  set {
+    name  = "installCRDs"
+    value = "true"
+  }
+  namespace = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
   values = [
     templatefile("${path.module}/templates/external-secrets.yaml.tpl",
       {
@@ -49,22 +62,25 @@ resource "helm_release" "kubernetes-external-secrets" {
 #   depends_on = [helm_release.kubernetes-external-secrets]
 # }
 
-resource "null_resource" "wait_after_helm_release" {
-  provisioner "local-exec" {
-    command = "sleep 180" # 3 minutes
-  }
+# resource "null_resource" "wait_after_helm_release" {
+#   provisioner "local-exec" {
+#     command = "sleep 180" # 3 minutes
+#   }
 
-  depends_on = [helm_release.kubernetes-external-secrets]
-}
+#   depends_on = [helm_release.kubernetes-external-secrets]
+# }
 
-resource "kubernetes_manifest" "gcp_cluster_secret_store" {
+resource "kubectl_manifest" "gcp_cluster_secret_store" {
   count = var.create_gcp_cluster_secret_store == true ? 1 : 0
-  manifest = yamldecode(templatefile("${path.module}/yaml/gcp_cluster_secret_store.yaml.tpl", {
-    gcp_cluster_secret_store_name = var.gcp_cluster_secret_store_name,
-    gcp_project_name              = var.gcp_project_name
-  }))
+  yaml_body = templatefile(
+    "${path.module}/yaml/gcp_cluster_secret_store.yaml.tpl",
+    {
+      "gcp_cluster_secret_store_name" = var.gcp_cluster_secret_store_name,
+      "gcp_project_name"              = var.gcp_project_name
+    }
+  )
 
   depends_on = [
-    null_resource.wait_after_helm_release
+    helm_release.kubernetes-external-secrets
   ]
 }
