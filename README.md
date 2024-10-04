@@ -32,7 +32,10 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_access_token"></a> [access\_token](#input\_access\_token) | n/a | `any` | n/a | yes |
 | <a name="input_create_gcp_cluster_secret_store"></a> [create\_gcp\_cluster\_secret\_store](#input\_create\_gcp\_cluster\_secret\_store) | Whether to create an association to external secret provider - GCP | `bool` | `true` | no |
+| <a name="input_eks_cluster_ca"></a> [eks\_cluster\_ca](#input\_eks\_cluster\_ca) | n/a | `any` | n/a | yes |
+| <a name="input_eks_cluster_endpoint"></a> [eks\_cluster\_endpoint](#input\_eks\_cluster\_endpoint) | For gavinbunney/kubectl provider | `any` | n/a | yes |
 | <a name="input_external_secrets_deployment_replica_count"></a> [external\_secrets\_deployment\_replica\_count](#input\_external\_secrets\_deployment\_replica\_count) | Deployment Pod replica count | `number` | `1` | no |
 | <a name="input_external_secrets_helm_chart_version"></a> [external\_secrets\_helm\_chart\_version](#input\_external\_secrets\_helm\_chart\_version) | n/a | `string` | `"0.10.4"` | no |
 | <a name="input_external_secrets_k8s_account_name"></a> [external\_secrets\_k8s\_account\_name](#input\_external\_secrets\_k8s\_account\_name) | n/a | `string` | `"external-secrets-sa"` | no |
