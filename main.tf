@@ -66,8 +66,8 @@ resource "kubernetes_manifest" "gcp_cluster_secret_store" {
     }
   }
 
-  depends_on = [
-    helm_release.kubernetes-external-secrets,
-    data.external.wait_for_crds
-  ]
+  # depends_on = [
+  #   helm_release.kubernetes-external-secrets,
+  #   data.external.wait_for_crds
+  # ]
 }
