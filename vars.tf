@@ -49,6 +49,6 @@ variable "gcp_cluster_secret_store_name" {
 }
 
 # For gavinbunney/kubectl provider
-variable "eks_cluster_endpoint" {}
-variable "eks_cluster_ca" {}
+variable "cluster_endpoint" {}
+variable "cluster_ca" {}
 variable "access_token" {}

@@ -9,8 +9,8 @@ terraform {
 }
 
 provider "kubectl" {
-  host                   = var.eks_cluster_endpoint
-  cluster_ca_certificate = base64decode(var.eks_cluster_ca)
+  host                   = var.cluster_endpoint
+  cluster_ca_certificate = base64decode(var.cluster_ca)
   token                  = var.access_token
   load_config_file       = false
 }
