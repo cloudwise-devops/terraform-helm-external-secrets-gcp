@@ -1,4 +1,4 @@
-timeout=60
+timeout=120
 interval=5
 end=$((SECONDS+timeout))
 

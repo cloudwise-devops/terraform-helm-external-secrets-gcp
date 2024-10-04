@@ -44,11 +44,8 @@ resource "helm_release" "kubernetes-external-secrets" {
   ]
 }
 
-resource "null_resource" "delay_before_manifest" {
-  provisioner "local-exec" {
-    command = "bash ${path.module}/scripts/wait-for-crds.sh"
-  }
-
+data "external" "wait_for_crds" {
+  program    = ["bash", "${path.module}/scripts/wait-for-crds.sh"]
   depends_on = [helm_release.kubernetes-external-secrets]
 }
 
@@ -69,5 +66,8 @@ resource "kubernetes_manifest" "gcp_cluster_secret_store" {
     }
   }
 
-  depends_on = [null_resource.delay_before_manifest]
+  depends_on = [
+    helm_release.kubernetes-external-secrets,
+    data.external.wait_for_crds
+  ]
 }
