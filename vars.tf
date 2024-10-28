@@ -9,7 +9,7 @@ variable "helm_repos" {
 }
 
 variable "external_secrets_helm_chart_version" {
-  default = "0.10.4"
+  default = "0.10.5"
 }
 
 variable "external_secrets_deployment_replica_count" {
