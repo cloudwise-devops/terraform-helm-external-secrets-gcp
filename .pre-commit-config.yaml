@@ -3,7 +3,6 @@ repos:
     rev: v1.96.1
     hooks:
       - id: terraform_fmt
-      # - id: terraform_validate
       - id: terraform_docs
         args :
           - --hook-config=--output-file=README.md
