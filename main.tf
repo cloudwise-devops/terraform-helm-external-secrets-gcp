@@ -1,4 +1,13 @@
 
+terraform {
+  required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.14.0"
+    }
+  }
+}
+
 resource "kubernetes_namespace" "kubernetes-external-secrets" {
   metadata {
     name = var.external_secrets_namespace_name
