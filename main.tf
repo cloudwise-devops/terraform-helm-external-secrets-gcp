@@ -64,19 +64,6 @@ resource "helm_release" "kubernetes-external-secrets" {
   ]
 }
 
-# data "external" "wait_for_crds" {
-#   program    = ["bash", "${path.module}/scripts/wait-for-crds.sh"]
-#   depends_on = [helm_release.kubernetes-external-secrets]
-# }
-
-# resource "null_resource" "wait_after_helm_release" {
-#   provisioner "local-exec" {
-#     command = "sleep 180" # 3 minutes
-#   }
-
-#   depends_on = [helm_release.kubernetes-external-secrets]
-# }
-
 resource "kubectl_manifest" "gcp_cluster_secret_store" {
   count = var.create_gcp_cluster_secret_store == true ? 1 : 0
   yaml_body = templatefile(
