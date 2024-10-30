@@ -1,9 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | 1.14.0 |
+No requirements.
 
 ## Providers
 
@@ -24,7 +22,7 @@
 | Name | Type |
 |------|------|
 | [helm_release.kubernetes-external-secrets](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubectl_manifest.gcp_cluster_secret_store](https://registry.terraform.io/providers/gavinbunney/kubectl/1.14.0/docs/resources/manifest) | resource |
+| [kubectl_manifest.gcp_cluster_secret_store](https://registry.terraform.io/providers/hashicorp/kubectl/latest/docs/resources/manifest) | resource |
 | [kubernetes_namespace.kubernetes-external-secrets](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_service_account.external_secrets](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
 

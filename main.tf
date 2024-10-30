@@ -1,20 +1,4 @@
 
-terraform {
-  required_providers {
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = "1.14.0"
-    }
-  }
-}
-
-provider "kubectl" {
-  host                   = var.cluster_endpoint
-  cluster_ca_certificate = var.cluster_ca
-  token                  = var.access_token
-  load_config_file       = false
-}
-
 resource "kubernetes_namespace" "kubernetes-external-secrets" {
   metadata {
     name = var.external_secrets_namespace_name
