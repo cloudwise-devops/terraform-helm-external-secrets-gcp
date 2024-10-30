@@ -47,8 +47,3 @@ variable "gcp_cluster_secret_store_name" {
     error_message = "The name must consist of lowercase alphanumeric characters or '-', start with a letter or number, and be between 1 and 63 characters long."
   }
 }
-
-# For gavinbunney/kubectl provider
-variable "cluster_endpoint" {}
-variable "cluster_ca" {}
-variable "access_token" {}
