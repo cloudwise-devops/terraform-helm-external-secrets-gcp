@@ -47,3 +47,9 @@ variable "gcp_cluster_secret_store_name" {
     error_message = "The name must consist of lowercase alphanumeric characters or '-', start with a letter or number, and be between 1 and 63 characters long."
   }
 }
+
+variable "use_new_kubernetes_manifest" {
+  description = "Use kubernetes_manifest instead of kubectl_manifest"
+  type        = bool
+  default     = false
+}

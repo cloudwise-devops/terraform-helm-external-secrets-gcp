@@ -9,9 +9,9 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.17.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.15.0 |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.14.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.35.1 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.32.0 |
 
 ## Modules
 
@@ -25,6 +25,7 @@
 |------|------|
 | [helm_release.kubernetes-external-secrets](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubectl_manifest.gcp_cluster_secret_store](https://registry.terraform.io/providers/gavinbunney/kubectl/1.14.0/docs/resources/manifest) | resource |
+| [kubernetes_manifest.gcp_project_cluster_store](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_namespace.kubernetes-external-secrets](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_service_account.external_secrets](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
 
@@ -41,6 +42,7 @@
 | <a name="input_gcp_cluster_secret_store_name"></a> [gcp\_cluster\_secret\_store\_name](#input\_gcp\_cluster\_secret\_store\_name) | The name of the GCP Cluster Secret Store. Must follow Kubernetes naming conventions. | `string` | `"default-gcp-project-cluster-store"` | no |
 | <a name="input_gcp_project_name"></a> [gcp\_project\_name](#input\_gcp\_project\_name) | n/a | `any` | n/a | yes |
 | <a name="input_helm_repos"></a> [helm\_repos](#input\_helm\_repos) | n/a | `map(string)` | <pre>{<br/>  "external-secrets": "https://charts.external-secrets.io"<br/>}</pre> | no |
+| <a name="input_use_new_kubernetes_manifest"></a> [use\_new\_kubernetes\_manifest](#input\_use\_new\_kubernetes\_manifest) | Use kubernetes\_manifest instead of kubectl\_manifest | `bool` | `false` | no |
 
 ## Outputs
 

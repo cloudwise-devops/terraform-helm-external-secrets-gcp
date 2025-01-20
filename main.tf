@@ -58,7 +58,7 @@ resource "helm_release" "kubernetes-external-secrets" {
 }
 
 resource "kubectl_manifest" "gcp_cluster_secret_store" {
-  count = var.create_gcp_cluster_secret_store == true ? 1 : 0
+  count = var.create_gcp_cluster_secret_store == true && var.use_new_kubernetes_manifest == false ? 1 : 0
   yaml_body = templatefile(
     "${path.module}/yaml/gcp_cluster_secret_store.yaml.tpl",
     {
@@ -66,6 +66,28 @@ resource "kubectl_manifest" "gcp_cluster_secret_store" {
       "gcp_project_name"              = var.gcp_project_name
     }
   )
+
+  depends_on = [
+    helm_release.kubernetes-external-secrets
+  ]
+}
+
+resource "kubernetes_manifest" "gcp_project_cluster_store" {
+  count = var.create_gcp_cluster_secret_store == true && var.use_new_kubernetes_manifest == true ? 1 : 0
+  manifest = {
+    "apiVersion" = "external-secrets.io/v1beta1"
+    "kind"       = "ClusterSecretStore"
+    "metadata" = {
+      "name" = var.gcp_cluster_secret_store_name
+    }
+    "spec" = {
+      "provider" = {
+        "gcpsm" = {
+          "projectID" = var.gcp_project_name
+        }
+      }
+    }
+  }
 
   depends_on = [
     helm_release.kubernetes-external-secrets
