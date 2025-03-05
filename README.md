@@ -9,9 +9,9 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.17.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.14.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.36.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 
 ## Modules
 
@@ -42,6 +42,7 @@
 | <a name="input_gcp_cluster_secret_store_name"></a> [gcp\_cluster\_secret\_store\_name](#input\_gcp\_cluster\_secret\_store\_name) | The name of the GCP Cluster Secret Store. Must follow Kubernetes naming conventions. | `string` | `"default-gcp-project-cluster-store"` | no |
 | <a name="input_gcp_project_name"></a> [gcp\_project\_name](#input\_gcp\_project\_name) | n/a | `any` | n/a | yes |
 | <a name="input_helm_repos"></a> [helm\_repos](#input\_helm\_repos) | n/a | `map(string)` | <pre>{<br/>  "external-secrets": "https://charts.external-secrets.io"<br/>}</pre> | no |
+| <a name="input_node_type"></a> [node\_type](#input\_node\_type) | Nodes provisioning where to deploy (standard, spot, preemptible) | `string` | `"any"` | no |
 | <a name="input_use_new_kubernetes_manifest"></a> [use\_new\_kubernetes\_manifest](#input\_use\_new\_kubernetes\_manifest) | Use kubernetes\_manifest instead of kubectl\_manifest | `bool` | `false` | no |
 
 ## Outputs
