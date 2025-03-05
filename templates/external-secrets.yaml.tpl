@@ -1,3 +1,8 @@
+%{ if node_type != "any" }
+global:
+  nodeSelector:
+    cloud.google.com/gke-provisioning: ${node_type}
+%{ endif }
 certController:
   log:
     level: error

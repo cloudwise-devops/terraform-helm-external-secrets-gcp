@@ -52,6 +52,7 @@ resource "helm_release" "kubernetes-external-secrets" {
       {
         sa_name                  = kubernetes_service_account.external_secrets.metadata.0.name
         deployment_replica_count = var.external_secrets_deployment_replica_count
+        node_type                = var.node_type
       }
     )
   ]

@@ -53,3 +53,8 @@ variable "use_new_kubernetes_manifest" {
   type        = bool
   default     = false
 }
+
+variable "node_type" {
+  default     = "any"
+  description = "Nodes provisioning where to deploy (standard, spot, preemptible)"
+}
