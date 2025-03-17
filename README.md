@@ -9,9 +9,9 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.17.0 |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.14.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.36.0 |
 
 ## Modules
 
@@ -35,7 +35,7 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_gcp_cluster_secret_store"></a> [create\_gcp\_cluster\_secret\_store](#input\_create\_gcp\_cluster\_secret\_store) | Whether to create an association to external secret provider - GCP | `bool` | `true` | no |
 | <a name="input_external_secrets_deployment_replica_count"></a> [external\_secrets\_deployment\_replica\_count](#input\_external\_secrets\_deployment\_replica\_count) | Deployment Pod replica count | `number` | `1` | no |
-| <a name="input_external_secrets_helm_chart_version"></a> [external\_secrets\_helm\_chart\_version](#input\_external\_secrets\_helm\_chart\_version) | n/a | `string` | `"0.14.3"` | no |
+| <a name="input_external_secrets_helm_chart_version"></a> [external\_secrets\_helm\_chart\_version](#input\_external\_secrets\_helm\_chart\_version) | n/a | `string` | `"0.14.4"` | no |
 | <a name="input_external_secrets_k8s_account_name"></a> [external\_secrets\_k8s\_account\_name](#input\_external\_secrets\_k8s\_account\_name) | n/a | `string` | `"external-secrets-sa"` | no |
 | <a name="input_external_secrets_k8s_sa_use_existing"></a> [external\_secrets\_k8s\_sa\_use\_existing](#input\_external\_secrets\_k8s\_sa\_use\_existing) | n/a | `bool` | `true` | no |
 | <a name="input_external_secrets_namespace_name"></a> [external\_secrets\_namespace\_name](#input\_external\_secrets\_namespace\_name) | n/a | `string` | `"external-secrets"` | no |
