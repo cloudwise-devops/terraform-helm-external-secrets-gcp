@@ -76,7 +76,7 @@ resource "kubectl_manifest" "gcp_cluster_secret_store" {
 resource "kubernetes_manifest" "gcp_project_cluster_store" {
   count = var.create_gcp_cluster_secret_store == true && var.use_new_kubernetes_manifest == true ? 1 : 0
   manifest = {
-    "apiVersion" = "external-secrets.io/v1beta1"
+    "apiVersion" = "external-secrets.io/v1"
     "kind"       = "ClusterSecretStore"
     "metadata" = {
       "name" = var.gcp_cluster_secret_store_name
