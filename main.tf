@@ -7,7 +7,7 @@ terraform {
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "3.0.2"
+      version = "2.17.0"
     }
   }
 }
@@ -46,12 +46,10 @@ resource "helm_release" "kubernetes-external-secrets" {
   wait_for_jobs = true
   force_update  = false
   recreate_pods = true
-  set = [
-    {
-      name  = "installCRDs"
-      value = "true"
-    },
-  ]
+  set {
+    name  = "installCRDs"
+    value = "true"
+    }
   namespace = kubernetes_namespace.kubernetes-external-secrets.metadata.0.name
   values = [
     templatefile("${path.module}/templates/external-secrets.yaml.tpl",
